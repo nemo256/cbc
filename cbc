@@ -547,10 +547,10 @@ if __name__ == '__main__':
     Default behaviour is (a test image is already provided):
         $ cbc -r -CHT -CCL -EDT -t
             --> Segment and count red blood cells.
+
     Other examples are:
         $ cbc -w -CCL -t
             --> Segment and count white blood cells.
-
         $ cbc -p
             --> Segment and count platelets.
         ''',
