@@ -16,7 +16,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url='https://github.com/nemo256/cbc',
-    install_requires=['opencv-python', 'tensorflow', 'numpy'],
+    install_requires=['opencv-python', 'tensorflow', 'tensorflow_addons', 'scipy', 'numpy'],
     keywords=['python', 'artificial intelligence', 'deep learning', 'blood cells', 'image segmentation', 'unet'],
     classifiers=[
         'Development Status :: 4 - Beta',
