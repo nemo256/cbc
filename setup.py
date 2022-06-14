@@ -8,7 +8,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 # Setting up
 setup(
     name='cbc',
-    version='0.0.1b2',
+    version='0.0.1',
     author='nemo256 (Amine Neggazi)',
     author_email='<neggazimedlamine@gmail.com>',
     description='Count Blood Cells',
