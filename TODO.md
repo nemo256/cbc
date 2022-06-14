@@ -1,4 +1,3 @@
-- [ ] Add unit tests.
 - [x] Finish documenting all functions.
 - [x] Implement argument parser for deploying the cbc script.
 - [x] Publish this project to PyPI.
