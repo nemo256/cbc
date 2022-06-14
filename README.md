@@ -1,5 +1,4 @@
-# The production version is at [nemo256/cbc](https://github.com/nemo256/cbc)
-# Blood Cells Count
+# Count Blood Cells
 Count red, white blood cells to detect various diseases such as blood cancer (leukemia), lower red blood cells count (anemia)...
 
 ![Sample](sample.png)
@@ -15,31 +14,23 @@ Count red, white blood cells to detect various diseases such as blood cancer (le
 
 ## Project Structure
 ```
-bc-count/
-|-- bc-count/
-|   |-- config.py
-|   |-- data.py
-|   |-- main.py
-|   |-- model.py
-|
-|-- bin/
-|   |-- bc-count
-|
-|-- docs/
-|
+cbc/
 |-- data/
-|   |-- plt/
-|   |-- rbc/
-|   |-- wbc/
+|   |-- plt/...
+|   |-- rbc/...
+|   |-- wbc/...
 |
-|-- models/
-
+|-- docs/...
+|
+|-- models/...
+|
 |-- output/
-|   |-- plt/
-|   |-- rbc/
-|   |-- wbc/
+|   |-- plt/...
+|   |-- rbc/...
+|   |-- wbc/...
 |
 |-- AUTHORS
+|-- cbc
 |-- LICENSE
 |-- README.md
 |-- TODO.md
@@ -50,29 +41,29 @@ bc-count/
 ## Install
 - Install straight from PyPI using pip:
 ```
-$ pip install bc-count
+$ pip install cbc
 ```
 ## Usage
 > Please read `bc-count --help` before using it
 > -o flag is optional (defaults to out/ directory)
 - Count blood cells (-r for red and -w for white):
 ```
-$ bc-count -r <blood-cell-image>
+$ cbc -r <blood-cell-image>
 ```
 - Predict blood cell image:
 ```
-$ bc-count predict -r <blood-cell-image>
+$ cbc predict -r <blood-cell-image>
 ```
 - Train a new model:
 ```
-$ bc-count train -r <model-name>
+$ cbc train -r <model-name>
 ```
 
 ## Develop
 - Download the project:
 ```
-$ git clone https://github.com/nemo256/bc-count
-$ cd bc-count
+$ git clone https://github.com/nemo256/cbc
+$ cd cbc 
 ```
 - Activate virtual environment:
 ```
@@ -82,8 +73,9 @@ $ pip install -r requirements.txt
 ```
 - Now just adapt the code to your need and then run using the command:
 ```
-$ python bc-count/main.py
+$ chmod +x cbc
+$ ./cbc
 ```
 
 ## License
-- Please read cell-count/LICENSE.
+- Please read [cbc/LICENSE](https://github.com/nemo256/cbc/LICENSE)

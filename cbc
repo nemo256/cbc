@@ -694,7 +694,7 @@ def predict(img='Im037_0'):
 
     :return --> saves the predicted (segmented blood cell image) under the folder output/
     '''
-    Check for existing predictions
+    # Check for existing predictions
     if os.path.exists(f'{output_directory}/mask.png'):
         print('Prediction already exists!')
         return
