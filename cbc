@@ -577,8 +577,6 @@ if __name__ == '__main__':
     else:
         print('Invalid blood cell type!\n')
 
-    # train('rbc')
-    # evaluate(model_name='rbc')
     predict()
     threshold('mask.png')
 
