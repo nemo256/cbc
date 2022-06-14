@@ -303,61 +303,49 @@ def denoise(img):
     return cv2.fastNlMeansDenoising(img, 23, 23, 7, 21)
 
 
-def predict(img='Im037_0'):
+def predict(img='/usr/share/cbc/images/test.jpg'):
     '''
     Predict (segment) blood cell images using the trained model (do_unet)
-    :param img --> the image we want to predict (from the test/ directory)
+    :param img --> the image we want to predict
 
     :return --> saves the predicted (segmented blood cell image) under the folder output/
     '''
     # Check for existing predictions
     if os.path.exists(f'{output_directory}/mask.png'):
-        print('Prediction already exists!')
+        print(f'Image already predicted <output/{cell_type}/>!\n')
+        print('Exiting...\n')
         return
 
-    test_img = sorted(glob.glob(f'data/{cell_type}/test/image/{img}.jpg'))
-    test_mask = sorted(glob.glob(f'data/{cell_type}/test/mask/{img}.jpg'))
-    if cell_type == 'rbc':
-        test_edge = sorted(glob.glob(f'data/{cell_type}/test/edge/{img}.jpg'))
-    elif cell_type == 'wbc' or cell_type == 'plt':
-        test_edge = None
-    else:
-        print('Invalid blood cell type!\n')
-        return
+    test_img = sorted(glob.glob(img))
 
-    # initialize do_unet
+    if not test_img:
+        print('Image not found!\n')
+        print('Exiting...\n')
+
+    # initializing the model
     model = do_unet()
 
     # Check for existing weights
-    if os.path.exists(f'models/{model_name}.h5'):
-        print('Test succeeded\n')
-        model.load_weights(f'models/{model_name}.h5')
-
-    # load test data
-    if cell_type == 'rbc':
-        img, mask, edge = load_data(test_img, test_mask, test_edge, padding=padding[0])
-
-        img_chips, mask_chips, edge_chips = slice(
-            img,
-            mask,
-            edge,
-            padding=padding[1],
-            input_size=input_shape[0],
-            output_size=output_shape[0],
-        )
+    if not os.path.exists(f'/usr/share/cbc/weights/{model_name}.h5'):
+        print('Unsuccessfull loading weights!\n')
+        print('Exiting...\n')
+        return
     else:
-        img, mask = load_data(test_img, test_mask, padding=padding[0])
+        model.load_weights(f'/usr/share/cbc/weights/{model_name}.h5')
 
-        img_chips, mask_chips = slice(
-            img,
-            mask,
-            padding=padding[1],
-            input_size=input_shape[0],
-            output_size=output_shape[0],
-        )
+    # load the image (slice it into chips for prediction)
+    img = load_data(test_img, padding=padding[0])
+
+    img_chips = slice(
+        img,
+        padding=padding[1],
+        input_size=input_shape[0],
+        output_size=output_shape[0],
+    )
 
     # segment all image chips
     output = model.predict(img_chips)
+
     if cell_type == 'rbc':
         new_mask_chips = np.array(output[0])
         new_edge_chips = np.array(output[1])
@@ -429,62 +417,6 @@ def predict(img='Im037_0'):
 
     # save the figure as a sample output
     plt.savefig('sample.png')
-
-
-def evaluate(model_name='mse'):
-    '''
-    Evaluate an already trained model
-    :param model_name --> the model weights that we want to evaluate
-
-    :return --> output the evaluated model weights directly to the screen.
-    '''
-    test_img_list = sorted(glob.glob(f'data/{cell_type}/test/image/*.jpg'))
-    test_mask_list = sorted(glob.glob(f'data/{cell_type}/test/mask/*.jpg'))
-    if cell_type == 'rbc':
-        test_edge_list = sorted(glob.glob(f'data/{cell_type}/test/edge/*.jpg'))
-    elif cell_type == 'wbc' or cell_type == 'plt':
-        test_edge_list = None
-    else:
-        print('Invalid blood cell type!\n')
-        return
-
-    # initialize do_unet
-    model = do_unet()
-
-    # load weights
-    if os.path.exists(f'models/{model_name}.h5'):
-        model.load_weights(f'models/{model_name}.h5')
-    else:
-        train(model_name)
-
-    # load test data
-    if cell_type == 'rbc':
-        img, mask, edge = load_data(test_img, test_mask, test_edge, padding=padding[0])
-
-        img_chips, mask_chips, edge_chips = slice(
-            img,
-            mask,
-            edge,
-            padding=padding[1],
-            input_size=input_shape[0],
-            output_size=output_shape[0]
-        )
-    elif cell_type == 'wbc' or cell_type == 'plt':
-        img, mask = load_data(test_img, test_mask, padding=padding[0])
-
-        img_chips, mask_chips = test_slice(
-            img,
-            mask,
-            padding=padding[1],
-            input_size=input_shape[0],
-            output_size=output_shape[0]
-        )
-
-    # print the evaluated accuracies
-    if cell_type == 'rbc':
-        print(model.evaluate(img_chips, (mask_chips, edge_chips)))
-    else:
-        print(model.evaluate(img_chips, (mask_chips)))
 
 
 def threshold(img='edge.png'):
