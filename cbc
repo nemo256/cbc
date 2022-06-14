@@ -383,41 +383,6 @@ def predict(img='/usr/share/cbc/images/test.jpg'):
         plt.imsave(f'{output_directory}/edge.png', new_edge)
         plt.imsave(f'{output_directory}/edge_mask.png', new_mask - new_edge)
 
-    # organize results into one figure
-    if cell_type == 'rbc':
-        fig = plt.figure(figsize=(25, 12), dpi=80)
-        fig.subplots_adjust(hspace=0.1, wspace=0.1)
-        ax  = fig.add_subplot(2, 3, 1)
-        ax.set_title('Test image')
-        ax.imshow(np.array(img)[0,:,:,:])
-        ax  = fig.add_subplot(2, 3, 2)
-        ax.set_title('Test mask')
-        ax.imshow(np.array(mask)[0,:,:])
-        ax  = fig.add_subplot(2, 3, 3)
-        ax.set_title('Test edge')
-        ax.imshow(np.array(edge)[0,:,:])
-        ax  = fig.add_subplot(2, 3, 5)
-        ax.set_title('Predicted mask')
-        ax.imshow(new_mask)
-        ax  = fig.add_subplot(2, 3, 6)
-        ax.set_title('Predicted edge')
-        ax.imshow(new_edge)
-    elif cell_type == 'wbc' or cell_type == 'plt':
-        fig = plt.figure(figsize=(25, 12), dpi=80)
-        fig.subplots_adjust(hspace=0.1, wspace=0.1)
-        ax  = fig.add_subplot(2, 2, 1)
-        ax.set_title('Test image')
-        ax.imshow(np.array(img)[0,:,:,:])
-        ax  = fig.add_subplot(2, 2, 2)
-        ax.set_title('Test mask')
-        ax.imshow(np.array(mask)[0,:,:])
-        ax  = fig.add_subplot(2, 2, 4)
-        ax.set_title('Predicted mask')
-        ax.imshow(new_mask)
-
-    # save the figure as a sample output
-    plt.savefig('sample.png')
-
 
 def threshold(img='edge.png'):
     '''
