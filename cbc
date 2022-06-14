@@ -589,11 +589,6 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    if args.image:
-        img = args.image
-    else:
-        img = None
-
     # get the type of cells <rbc, wbc or plt>
     if args.red:
         cell_type = 'rbc'
@@ -619,7 +614,11 @@ if __name__ == '__main__':
     model_name = cell_type
 
     # predict (segment) the input image
-    predict(img)
+    if args.image:
+        predict(args.image)
+    else:
+        predict()
+
     if args.threshold:
         threshold('mask.png')
         if cell_type == 'rbc':
