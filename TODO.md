@@ -1,6 +1,6 @@
 - [ ] Add unit tests.
 - [x] Finish documenting all functions.
-- [ ] Implement argument parser for deploying the cbc script.
+- [x] Implement argument parser for deploying the cbc script.
 - [x] Publish this project to PyPI.
-- [ ] Publish a stable python script to PyPI.
+- [x] Publish a stable python script to PyPI.
 - [ ] Apply final touches to the production script.
