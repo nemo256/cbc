@@ -587,11 +587,11 @@ if __name__ == '__main__':
                         action='store_true',
                         help='Use Euclidean Distance Tranform (EDT) to predict the cell count')
     parser.set_defaults(
-        red=True,
+        red=False,
         white=False,
         platelets=False,
         threshold=True,
-        hough_transform=True,
+        hough_transform=False,
         component_labeling=True,
         distance_transform=True
     )

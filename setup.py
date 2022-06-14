@@ -15,7 +15,7 @@ with open('requirements.txt') as f:
 # setting up
 setup(
     name='cbc',
-    version='1.0.3',
+    version='1.0.4',
     author='nemo256 (Amine Neggazi)',
     author_email='<neggazimedlamine@gmail.com>',
     description='Count Blood Cells',
