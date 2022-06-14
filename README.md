@@ -78,4 +78,4 @@ $ ./cbc
 ```
 
 ## License
-- Please read [cbc/LICENSE](https://github.com/nemo256/cbc/LICENSE)
+- Please read [cbc/LICENSE](https://github.com/nemo256/cbc/blob/master/LICENSE)
