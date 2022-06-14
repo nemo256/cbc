@@ -7,15 +7,15 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 # Setting up
 setup(
-    name='bc-count',
-    version='0.0.8b1',
+    name='cbc',
+    version='0.0.1b2',
     author='nemo256 (Amine Neggazi)',
     author_email='<neggazimedlamine@gmail.com>',
-    description='Count blood cells',
+    description='Count Blood Cells',
     packages=find_packages(),
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url='https://github.com/nemo256/bc-count',
+    url='https://github.com/nemo256/cbc',
     install_requires=['opencv-python', 'tensorflow', 'numpy'],
     keywords=['python', 'artificial intelligence', 'deep learning', 'blood cells', 'image segmentation', 'unet'],
     classifiers=[
@@ -25,5 +25,5 @@ setup(
         'Programming Language :: Python :: 3',
         'Operating System :: OS Independent',
     ],
-    scripts=['bin/bc-count']
+    scripts=['cbc']
 )
