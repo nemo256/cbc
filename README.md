@@ -44,7 +44,7 @@ cbc/
 $ pip install cbc
 ```
 ## Usage
-> Please read `bc-count --help` before using it
+> Please read `cbc --help` before using it
 > -o flag is optional (defaults to out/ directory)
 - Count blood cells (-r for red and -w for white):
 ```
