@@ -16,6 +16,7 @@
 # imports
 import glob
 import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import cv2
 import json
 import numpy as np
@@ -25,12 +26,14 @@ import tensorflow as tf
 import tensorflow_addons as tfa
 from tensorflow import keras
 from scipy import ndimage
+import argparse
 
 
 # global variables
 input_shape  = (188, 188, 3)
 output_shape = (100, 100, 1)
 padding      = [200, 100]
+
 
 def conv_bn(filters,
             model,
@@ -312,7 +315,7 @@ def predict(img='/usr/share/cbc/images/test.jpg'):
     '''
     # Check for existing predictions
     if os.path.exists(f'{output_directory}/mask.png'):
-        print(f'Image already predicted <output/{cell_type}/>!')
+        print(f'Image already predicted <output/{cell_type}>!')
         print('Exiting...')
         return
 
@@ -531,28 +534,102 @@ if __name__ == '__main__':
         wbc --> White blood cells
         plt --> Platelets
     '''
-    cell_type        = 'rbc'             # rbc, wbc or plt
-    model_name       = cell_type
-    if cell_type == 'rbc':
-        output_directory = 'output/rbc'
-    elif cell_type == 'wbc':
-        output_directory = 'output/wbc'
-    elif cell_type == 'plt':
-        output_directory = 'output/plt'
+
+    parser = argparse.ArgumentParser(
+        description=
+        '''
+    Count red, white blood cells and platelets to detect various
+    diseases such as blood cancer (leukemia), lower red blood cell
+    count (anemia)...
+        ''',
+        epilog=
+        '''examples:
+    Default behaviour is (a test image is already provided):
+        $ cbc -r -CHT -CCL -EDT -t
+            --> Segment and count red blood cells.
+    Other examples are:
+        $ cbc -w -CCL -t
+            --> Segment and count white blood cells.
+
+        $ cbc -p
+            --> Segment and count platelets.
+        ''',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument('image', metavar='image', nargs='?',
+                        help='Path to the blood cell image')
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument('-r', '--red', dest='red',
+                       action='store_true',
+                       help='Predict red blood cell count')
+    group.add_argument('-w', '--white', dest='white',
+                       action='store_true',
+                       help='Predict white blood cell count')
+    group.add_argument('-p', '--platelets', dest='platelets',
+                       action='store_true',
+                       help='Predict platelets count')
+    parser.add_argument('-o', '--output',
+                        dest='output_directory',
+                        help="Apply otsu's thresholding to the output images")
+    parser.add_argument('-CHT', '--hough-tranform', dest='hough_transform',
+                        action='store_true',
+                        help='Use Circle Hough Tranform (CHT) to predict the cell count')
+    parser.add_argument('-CCL', '--component-labeling',
+                        dest='component_labeling',
+                        action='store_true',
+                        help='Use Connected Component Labeling (CCL) to predict the cell count')
+    parser.add_argument('-EDT', '--distance-transform',
+                        dest='distance_transform',
+                        action='store_true',
+                        help='Use Euclidean Distance Tranform (EDT) to predict the cell count')
+    parser.add_argument('-t', '--threshold',
+                        dest='threshold',
+                        action='store_true',
+                        help="Apply otsu's thresholding to the output images")
+
+    args = parser.parse_args()
+
+    # get the type of cells <rbc, wbc or plt>
+    if args.red:
+        cell_type = 'rbc'
+    elif args.white:
+        cell_type = 'wbc'
+    elif args.platelets:
+        cell_type = 'plt'
     else:
-        print('Invalid blood cell type!\n')
+        cell_type = 'rbc'
+
+    if args.output_directory:
+        output_directory = args.output_directory
+    else:
+        if cell_type == 'rbc':
+            output_directory = 'output/rbc'
+        elif cell_type == 'wbc':
+            output_directory = 'output/wbc'
+        elif cell_type == 'plt':
+            output_directory = 'output/plt'
+        else:
+            print('Invalid blood cell type!\n')
+
+    model_name = cell_type
 
     predict()
-    threshold('mask.png')
+    if args.threshold:
+        threshold('mask.png')
+        if cell_type == 'rbc':
+            threshold('edge.png')
+            threshold('edge_mask.png')
 
-    if cell_type == 'rbc':
-        threshold('edge.png')
-        threshold('edge_mask.png')
-        distance_transform('threshold_edge_mask.png')
-        hough_transform('edge.png')
-    else:
+    if args.distance_transform:
+        threshold('mask.png')
         distance_transform('threshold_mask.png')
-        hough_transform('mask.png')
 
-    component_labeling('distance_transform.png')
+    if args.hough_transform:
+        if args.red:
+            hough_transform('edge.png')
+        else:
+            print('Circle Hough transform is only usefull with red blood cells')
+            print('Exiting...')
 
+    if args.component_labeling:
+        component_labeling('mask.png')
