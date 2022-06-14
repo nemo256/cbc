@@ -50,13 +50,13 @@ $ pip install cbc
 ```
 $ cbc -r <blood-cell-image>
 ```
-- Predict blood cell image:
+- Predict red blood cells (use Circle Hough Tranform and Connected Component Labeling with otsu's thresholding):
 ```
-$ cbc predict -r <blood-cell-image>
+$ cbc -r -CHT -CCL -t <blood-cell-image>
 ```
-- Train a new model:
+- Predict white blood cells (with custom output directory):
 ```
-$ cbc train -r <model-name>
+$ cbc -w <blood-cell-image> -o outdir/
 ```
 
 ## Develop
@@ -71,7 +71,7 @@ $ python -m venv venv
 $ source venv/bin/activate
 $ pip install -r requirements.txt
 ```
-- Now just adapt the code to your need and then run using the command:
+- Now just adapt the code to your needs and then run using the command:
 ```
 $ chmod +x cbc
 $ ./cbc
