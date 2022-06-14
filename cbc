@@ -312,8 +312,8 @@ def predict(img='/usr/share/cbc/images/test.jpg'):
     '''
     # Check for existing predictions
     if os.path.exists(f'{output_directory}/mask.png'):
-        print(f'Image already predicted <output/{cell_type}/>!\n')
-        print('Exiting...\n')
+        print(f'Image already predicted <output/{cell_type}/>!')
+        print('Exiting...')
         return
 
     test_img = sorted(glob.glob(img))
@@ -327,8 +327,8 @@ def predict(img='/usr/share/cbc/images/test.jpg'):
 
     # Check for existing weights
     if not os.path.exists(f'/usr/share/cbc/weights/{model_name}.h5'):
-        print('Unsuccessfull loading weights!\n')
-        print('Exiting...\n')
+        print('Unsuccessfull loading weights!')
+        print('Exiting...')
         return
     else:
         model.load_weights(f'/usr/share/cbc/weights/{model_name}.h5')

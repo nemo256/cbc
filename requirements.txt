@@ -6,6 +6,7 @@ Babel==2.10.1
 bleach==5.0.0
 build==0.8.0
 cachetools==5.2.0
+cbc==0.0.1
 certifi==2022.5.18.1
 cffi==1.15.0
 charset-normalizer==2.0.12
@@ -51,7 +52,6 @@ pyasn1-modules==0.2.8
 pycparser==2.21
 Pygments==2.12.0
 pyparsing==3.0.9
-pytest==7.1.2
 python-dateutil==2.8.2
 pytz==2022.1
 readme-renderer==35.0
