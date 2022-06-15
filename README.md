@@ -13,27 +13,17 @@ Count red, white blood cells to detect various diseases such as blood cancer (le
 ## Project Structure
 ```
 cbc/
-|-- data/
-|   |-- plt/...
-|   |-- rbc/...
-|   |-- wbc/...
-|
 |-- docs/...
 |
 |-- models/...
-|
-|-- output/
-|   |-- plt/...
-|   |-- rbc/...
-|   |-- wbc/...
 |
 |-- AUTHORS
 |-- cbc
 |-- LICENSE
 |-- README.md
-|-- TODO.md
 |-- requirements.txt 
 |-- setup.py
+|-- test.jpg
 ```
 
 ## Install
