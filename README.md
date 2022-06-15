@@ -1,8 +1,6 @@
 # Count Blood Cells
 Count red, white blood cells to detect various diseases such as blood cancer (leukemia), lower red blood cells count (anemia)...
 
-![Sample](sample.png)
-
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
