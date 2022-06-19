@@ -15,7 +15,10 @@ Count red, white blood cells to detect various diseases such as blood cancer (le
 cbc/
 |-- docs/...
 |
-|-- models/...
+|-- models/
+|   |-- plt.h5
+|   |-- rbc.h5
+|   |-- wbc.h5
 |
 |-- AUTHORS
 |-- cbc
