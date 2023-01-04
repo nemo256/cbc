@@ -11,9 +11,6 @@
 ![Maintenance](https://shields.io/maintenance/yes/2022?style=for-the-badge)
 ![License](https://shields.io/github/license/nemo256/cbc?style=for-the-badge)
 
-<!-- Demo image -->
-![Demo](demo.png)
-
 </div>
 
 <!-- TABLE OF CONTENTS -->
