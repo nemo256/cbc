@@ -1,6 +1,6 @@
 <div align="center">
 
-# `CBC`
+# `cbc`
 
 <h4>
   Count red, white blood cells to detect various diseases such as blood cancer (leukemia), lower red blood cells count (anemia)...
